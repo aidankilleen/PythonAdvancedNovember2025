@@ -32,6 +32,10 @@ sub = lambda x, y : x - y
 
 print (process(x, y, sub))
 
+process(x, y, lambda a, b : a * b) # lambda is inline definition of an anonymous function
+
+
+
 
 
 
