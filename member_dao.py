@@ -44,7 +44,13 @@ class MemberDao():
         member.id = cursor.lastrowid
         return member
 
+    def delete(self, id):
+        sql = f"""DELETE FROM members WHERE id = {id}"""
+        cursor = self.conn.cursor()
+        cursor.execute(sql)
+        self.conn.commit()
 
+        return cursor.rowcount
         
 
 
