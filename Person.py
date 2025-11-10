@@ -18,6 +18,9 @@ class Person():
     def __eq__(self, other):
         return self.id == other.id and self.name == other.name and self.email == other.email and self.active == other.active
 
+    def __lt__(self, other):
+        # print (f"comparing {self.id} with {other.id}")
+        return self.id < other.id
 
 
 if __name__ == "__main__":

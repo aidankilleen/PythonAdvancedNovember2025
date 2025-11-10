@@ -11,6 +11,9 @@ class Member():
     email:str
     active:bool
 
+    def __lt__(self, other):
+        return self.id < other.id
+
 m1 = Member(1, "Alice", "alice@gmail.com", True)
 m2 = Member(1, "Alice", "alice@gmail.com", True)
 
@@ -25,6 +28,9 @@ if m1 == m2:
 else:
     print ("different")
 
+
+if m1 < m2:
+    print ("less")
 
 
 

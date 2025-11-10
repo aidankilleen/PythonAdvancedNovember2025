@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     t = Team("Corporate Sales")
     t.add(Person(9, "Dan", "dan@gmail.com", False))
-    t.add(Person(15, "Alice", "alice@gmail.com", True))
+    t.add(Person(15, "alice", "alice@gmail.com", True))
     t.add(Person(2, "Carol", "carol@gmail.com", True))
     t.add(Person(12, "Bob", "bob@gmail.com", False))
     t.add(Person(18, "eve", "eve@gmail.com", True))
@@ -54,8 +54,18 @@ if __name__ == "__main__":
     print (t[::-1])
 
 
+    sorted_team = sorted(t)
+
+    print (sorted_team)
+
+    sorted_team = sorted(t, key=lambda member:member.name.upper())
+
+    print (sorted_team)
 
 
+    sorted_team = sorted(t, key=lambda member: (member.active, member.name.upper()))
+
+    print (sorted_team)
 
 
 
