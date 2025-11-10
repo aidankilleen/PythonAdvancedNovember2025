@@ -21,14 +21,35 @@ class MemberDao():
         rs = cursor.execute(sql)
 
         for row in rs:
-            id = row[0]
-            name=row[1]
-            email=row[2]
-            active=row[3]
+            (id, name, email, active) = row
             member = Member(id, name, email, active)
 
             members.append(member)
         return members
+    
+    def add(self, member):
+        
+        sql = f"""INSERT INTO members 
+                (name, email, active) 
+                VALUES(
+                    '{member.name}', 
+                    '{member.email}', 
+                    {1 if member.active else 0}
+                )"""
+        cursor = self.conn.cursor()
+        cursor.execute(sql)
+        self.conn.commit()
+
+        # read the newly generated id from the db
+        member.id = cursor.lastrowid
+        return member
+
+
+        
+
+
+    def close(self):
+        self.conn.close()
 
 if __name__ == "__main__":
 
