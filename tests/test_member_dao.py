@@ -45,29 +45,29 @@ def db_path(request):
 
 def test_open_close(db_path):
 
-    dao = MemberDao(DBFILENAME)
+    dao = MemberDao(db_path)
     dao.close()
 
 
-def test_get_all():
-    dao = MemberDao(DBFILENAME)
+def test_get_all(db_path):
+    dao = MemberDao(db_path)
     members = dao.get_all()
     assert(len(members)) > 0
     dao.close()
 
 
-def test_insert_delete():
+def test_insert_delete(db_path):
     member = Member(-1, "New User", "new.user3@gmail.com", True)
-    dao = MemberDao(DBFILENAME)
+    dao = MemberDao(db_path)
     added_member = dao.add(member)
     dao.delete(added_member.id)
     dao.close()
 
     assert added_member.id != -1
 
-def test_duplicate_email_fails():
+def test_duplicate_email_fails(db_path):
 
-    dao = MemberDao(DBFILENAME)
+    dao = MemberDao(db_path)
     m1 = Member(-1, "Aidan", "abcde@gmail.com", True)
     m2 = Member(-1, "Alice", "abcde@gmail.com", False)
 
@@ -80,8 +80,8 @@ def test_duplicate_email_fails():
     dao.delete(m1.id)
     dao.close()
 
-def test_update():
-    dao = MemberDao(DBFILENAME)
+def test_update(db_path):
+    dao = MemberDao(db_path)
     member = Member(-1, "Alice", "abcdefghi@gmail.com", False)
     member = dao.add(member)
     member.name = "CHANGED"
@@ -98,9 +98,9 @@ def test_update():
     dao.close()
 
 
-def test_change_to_existing_email():
+def test_change_to_existing_email(db_path):
 
-    dao = MemberDao(DBFILENAME)
+    dao = MemberDao(db_path)
 
     member1 = dao.add(Member(-1, "Test1", "test1@gmail.com", True))
     member2 = dao.add(Member(-1, "Test2", "test2@gmail.com", True))
@@ -116,9 +116,9 @@ def test_change_to_existing_email():
 
     dao.close()
 
-def test_add_names_with_apostrophes():
+def test_add_names_with_apostrophes(db_path):
 
-    dao = MemberDao(DBFILENAME)
+    dao = MemberDao(db_path)
     member = Member(-1, "Alice O'Sullivan", "aliceos@gmail.com", True)
     member = dao.add(member)
 
@@ -135,10 +135,10 @@ def test_add_names_with_apostrophes():
 #    assert member.id != -1
 #   dao.close()
 
-def test_update_names_with_apostrophes():
+def test_update_names_with_apostrophes(db_path):
 
-    dao = MemberDao(DBFILENAME)
+    dao = MemberDao(db_path)
     member = dao.add(Member(-1, "Zoe", "zoe1@gmail.com", True))
     member.name = "Zoe O'Sullivan"
     dao.update(member)
-
+    dao.close()
