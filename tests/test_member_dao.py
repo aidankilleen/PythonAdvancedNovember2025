@@ -141,4 +141,4 @@ def test_update_names_with_apostrophes(db_path):
     member = dao.add(Member(-1, "Zoe", "zoe1@gmail.com", True))
     member.name = "Zoe O'Sullivan"
     dao.update(member)
-    dao.close()
+    # dao.close()
