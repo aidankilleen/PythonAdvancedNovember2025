@@ -115,3 +115,30 @@ def test_change_to_existing_email():
     dao.delete(member2.id)
 
     dao.close()
+
+def test_add_names_with_apostrophes():
+
+    dao = MemberDao(DBFILENAME)
+    member = Member(-1, "Alice O'Sullivan", "aliceos@gmail.com", True)
+    member = dao.add(member)
+
+    
+    assert member.id != -1
+    dao.close()
+
+#def test_sql_injection(db_path):
+#    dao = MemberDao(DBFILENAME)    
+    
+#    member = Member(-1, "','',0); --", "", True)
+
+#    member = dao.add(member)
+#    assert member.id != -1
+#   dao.close()
+
+def test_update_names_with_apostrophes():
+
+    dao = MemberDao(DBFILENAME)
+    member = dao.add(Member(-1, "Zoe", "zoe1@gmail.com", True))
+    member.name = "Zoe O'Sullivan"
+    dao.update(member)
+
