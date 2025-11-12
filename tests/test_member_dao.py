@@ -152,3 +152,9 @@ def test_update_names_with_apostrophes(dao):
     member.name = "Zoe O'Sullivan"
     dao.update(member)
     #dao.close()
+
+
+def test_passing_test(dao):
+
+    assert True
+    
