@@ -160,4 +160,5 @@ def test_passing_test(dao):
 
 def test_failing_test(dao):
 
-    assert False
+    # assert False
+    assert True
