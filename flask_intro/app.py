@@ -1,10 +1,29 @@
 # app.py
-
-
-from flask import Flask, render_template
-
+from flask import Flask, g, render_template
+from web_dao import WebDao
 
 app = Flask(__name__)
+DB_FILE = "C:\\work\\training\\python\\PythonAdvancedNovember2025\\testdb.db"
+
+@app.teardown_appcontext
+def close_db(error=None):
+    print ("closing database")
+    db = g.pop("db", None)
+    if db is not None:
+        db.close()
+
+@app.get("/members")
+def members():
+    dao = WebDao(DB_FILE)
+    members = dao.get_all()
+    print (members)
+    #return "<h1>Did this work?</h1>"
+    return render_template("members.html", 
+                           heading="Member List", 
+                           members=members)
+
+
+
 
 
 @app.get("/")
