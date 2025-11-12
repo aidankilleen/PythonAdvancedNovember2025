@@ -4,8 +4,8 @@
 import os
 import sqlite3
 import pytest
-from Member import Member
-from member_dao import MemberDao
+from member_manager import Member
+from member_manager import MemberDao
 
 DBFILENAME="testdb.db"
 
@@ -157,4 +157,3 @@ def test_update_names_with_apostrophes(dao):
 def test_passing_test(dao):
 
     assert True
-    
