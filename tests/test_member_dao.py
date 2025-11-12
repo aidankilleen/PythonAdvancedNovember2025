@@ -31,6 +31,16 @@ def db_path(request):
 
     return path
 
+@pytest.fixture(scope="function")
+def dao(db_path):
+
+    #print ("dao() called")
+    d = MemberDao(db_path)
+    try:
+        yield d
+    finally:
+        #print("dao closed")
+        d.close()
 
 
 # def test_create_schema():
@@ -43,31 +53,31 @@ def db_path(request):
 #     dao.close()
 
 
-def test_open_close(db_path):
+#def test_open_close(dao):
 
-    dao = MemberDao(db_path)
-    dao.close()
+#    dao = MemberDao(db_path)
+#    dao.close()
 
 
-def test_get_all(db_path):
-    dao = MemberDao(db_path)
+def test_get_all(dao):
+    #dao = MemberDao(DBFILENAME)
     members = dao.get_all()
     assert(len(members)) > 0
-    dao.close()
+    #dao.close()
 
 
-def test_insert_delete(db_path):
+def test_insert_delete(dao):
     member = Member(-1, "New User", "new.user3@gmail.com", True)
-    dao = MemberDao(db_path)
+    #dao = MemberDao(DBFILENAME)
     added_member = dao.add(member)
     dao.delete(added_member.id)
-    dao.close()
+    #dao.close()
 
     assert added_member.id != -1
 
-def test_duplicate_email_fails(db_path):
+def test_duplicate_email_fails(dao):
 
-    dao = MemberDao(db_path)
+    #dao = MemberDao(DBFILENAME)
     m1 = Member(-1, "Aidan", "abcde@gmail.com", True)
     m2 = Member(-1, "Alice", "abcde@gmail.com", False)
 
@@ -78,10 +88,10 @@ def test_duplicate_email_fails(db_path):
         dao.add(m2)
 
     dao.delete(m1.id)
-    dao.close()
+    #dao.close()
 
-def test_update(db_path):
-    dao = MemberDao(db_path)
+def test_update(dao):
+    #dao = MemberDao(DBFILENAME)
     member = Member(-1, "Alice", "abcdefghi@gmail.com", False)
     member = dao.add(member)
     member.name = "CHANGED"
@@ -95,12 +105,12 @@ def test_update(db_path):
 
     dao.delete(member.id)
 
-    dao.close()
+    #dao.close()
 
 
-def test_change_to_existing_email(db_path):
+def test_change_to_existing_email(dao):
 
-    dao = MemberDao(db_path)
+    #dao = MemberDao(DBFILENAME)
 
     member1 = dao.add(Member(-1, "Test1", "test1@gmail.com", True))
     member2 = dao.add(Member(-1, "Test2", "test2@gmail.com", True))
@@ -114,17 +124,17 @@ def test_change_to_existing_email(db_path):
     dao.delete(member1.id)
     dao.delete(member2.id)
 
-    dao.close()
+    #dao.close()
 
-def test_add_names_with_apostrophes(db_path):
+def test_add_names_with_apostrophes(dao):
 
-    dao = MemberDao(db_path)
+    #dao = MemberDao(DBFILENAME)
     member = Member(-1, "Alice O'Sullivan", "aliceos@gmail.com", True)
     member = dao.add(member)
 
     
     assert member.id != -1
-    dao.close()
+    #dao.close()
 
 #def test_sql_injection(db_path):
 #    dao = MemberDao(DBFILENAME)    
@@ -135,10 +145,10 @@ def test_add_names_with_apostrophes(db_path):
 #    assert member.id != -1
 #   dao.close()
 
-def test_update_names_with_apostrophes(db_path):
+def test_update_names_with_apostrophes(dao):
 
-    dao = MemberDao(db_path)
+    #dao = MemberDao(DBFILENAME)
     member = dao.add(Member(-1, "Zoe", "zoe1@gmail.com", True))
     member.name = "Zoe O'Sullivan"
     dao.update(member)
-    # dao.close()
+    #dao.close()
