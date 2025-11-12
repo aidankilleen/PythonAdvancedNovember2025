@@ -157,3 +157,7 @@ def test_update_names_with_apostrophes(dao):
 def test_passing_test(dao):
 
     assert True
+
+def test_failing_test(dao):
+
+    assert False
