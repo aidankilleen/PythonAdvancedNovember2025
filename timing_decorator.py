@@ -1,9 +1,5 @@
 # timing_decorator.py
-
-
-
 import time
-
 
 def timing(func):
 

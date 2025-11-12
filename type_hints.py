@@ -1,10 +1,6 @@
 # type_hints.py
-
-
 name:str = "Aidan"
 name = 99
-
-
 
 i = 10
 print (i)
@@ -13,13 +9,10 @@ print (i)
 i = "ten"
 print (i)
 
-
 def generate_greeting(name:str) -> str:
-
     return f"Welcome {name}"
 
 i:int
-
 i = generate_greeting(27)
 
 

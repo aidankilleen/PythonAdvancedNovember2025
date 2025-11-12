@@ -23,6 +23,7 @@ def process(a:int, b:int, func: Callable[[int, int],int]) -> int:
 x = 10
 y = 20
 
+# strategy design pattern
 print (process(x, y, add))
 print (process(x, y, mul))
 print (process(x, y, div))

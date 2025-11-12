@@ -76,11 +76,6 @@ class App(QWidget):
 
             if self.dao.delete(int(id)) > 0:
                 self.member_table.removeRow(row)
-
-
-
-
-
     def btn_test_clicked(self):
         QMessageBox.information(self, "Click", "You clicked the button")
 
